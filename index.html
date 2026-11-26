@@ -1,915 +1,346 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan Ujian Semester 1 - PAI & Budi Pekerti Kelas 1 SD</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Fredoka (Ramah anak) & Nunito -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        display: ['Fredoka', 'sans-serif'],
-                        sans: ['Nunito', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                        },
-                        sunny: {
-                            100: '#fef9c3',
-                            400: '#facc15',
-                            500: '#eab308',
-                        },
-                        sky: {
-                            100: '#e0f2fe',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Animasi halus dan gaya tambahan ramah anak */
-        body {
-            background-color: #f0f9ff;
-            background-image: radial-gradient(#bae6fd 2px, transparent 2px);
-            background-size: 32px 32px;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .btn-bounce {
-            transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
-        }
-        .btn-bounce:active {
-            transform: scale(0.96);
-        }
-
-        .option-card {
-            transition: all 0.2s ease;
-        }
-        
-        /* Custom scrollbar untuk navigasi nomor */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.9) translateY(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .animate-pop {
-            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-    </style>
-</head>
-<body class="min-h-screen font-sans text-slate-800 flex flex-col justify-between selection:bg-sunny-400 selection:text-slate-900">
-
-    <!-- HEADER APLIKASI -->
-    <header class="bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 text-white shadow-lg rounded-b-3xl sticky top-0 z-30">
-        <div class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <!-- Ikon SVG Buku/Masjid Ramah Anak -->
-                <div class="bg-white/20 p-2.5 rounded-2xl backdrop-blur-sm shadow-inner flex-shrink-0">
-                    <svg class="w-8 h-8 text-sunny-100" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-                <div>
-                    <span class="inline-block bg-white/25 text-white text-xs font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider mb-0.5">Kelas 1 SD • Semester 1</span>
-                    <h1 class="font-display text-lg sm:text-xl font-bold leading-tight">Latihan Ujian PAI & Budi Pekerti</h1>
-                </div>
-            </div>
-            
-            <!-- Tombol Kembali ke Menu (Muncul saat kuis berlangsung) -->
-            <button id="btn-home-header" onclick="confirmBackToMenu()" class="hidden bg-white/20 hover:bg-white/30 active:bg-white/40 text-white px-3 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                </svg>
-                <span class="hidden sm:inline">Menu</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- KONTEN UTAMA -->
-    <main class="flex-grow max-w-3xl w-full mx-auto px-4 py-6">
-
-        <!-- 1. HALAMAN AWAL / PILIH MODE LATIHAN -->
-        <section id="view-start" class="animate-pop space-y-6">
-            <!-- Kartu Sambutan -->
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-md border-4 border-sky-100 text-center relative overflow-hidden">
-                <div class="w-20 h-20 bg-sunny-100 rounded-full mx-auto mb-4 flex items-center justify-center shadow-inner border-4 border-sunny-400">
-                    <span class="text-4xl" role="img" aria-label="Bintang">🌟</span>
-                </div>
-                <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Assalamu'alaikum, Anak Hebat!</h2>
-                <p class="text-slate-600 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                    Ayo berlatih soal Pendidikan Agama Islam Bab 1 sampai Bab 5. Pilih tingkat latihan yang kamu mau di bawah ini ya!
-                </p>
-
-                <!-- Daftar Materi Cakupan -->
-                <div class="mt-5 flex flex-wrap justify-center gap-2">
-                    <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs sm:text-sm font-bold px-3 py-1 rounded-full">Bab 1: Al-Qur'an</span>
-                    <span class="bg-sky-50 text-sky-700 border border-sky-200 text-xs sm:text-sm font-bold px-3 py-1 rounded-full">Bab 2: Rukun Iman</span>
-                    <span class="bg-amber-50 text-amber-700 border border-amber-200 text-xs sm:text-sm font-bold px-3 py-1 rounded-full">Bab 3: Basmalah & Hamdalah</span>
-                    <span class="bg-purple-50 text-purple-700 border border-purple-200 text-xs sm:text-sm font-bold px-3 py-1 rounded-full">Bab 4: Rukun Islam</span>
-                    <span class="bg-rose-50 text-rose-700 border border-rose-200 text-xs sm:text-sm font-bold px-3 py-1 rounded-full">Bab 5: Nabi & Rasul</span>
-                </div>
-            </div>
-
-            <!-- Pilihan Mode / Filter Tingkat Kesulitan -->
-            <div class="space-y-3">
-                <h3 class="font-display text-xl font-bold text-slate-700 px-1 flex items-center gap-2">
-                    <span>🎯</span> Pilih Mode Latihan:
-                </h3>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Mode 1: Semua Soal -->
-                    <button onclick="startQuiz('all')" class="btn-bounce col-span-1 sm:col-span-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white p-5 rounded-3xl shadow-lg border-b-4 border-indigo-800 text-left flex items-center justify-between group">
-                        <div class="flex items-center gap-4">
-                            <div class="bg-white/20 w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0">
-                                🏆
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-display text-xl sm:text-2xl font-bold">Semua Soal (Ujian)</span>
-                                </div>
-                                <p class="text-indigo-100 text-sm sm:text-base font-semibold mt-0.5">Gabungan Mudah, Sedang & Susah • <span class="underline decoration-sunny-400 decoration-2">15 Soal</span></p>
-                            </div>
-                        </div>
-                        <div class="bg-white text-indigo-600 w-10 h-10 rounded-full flex items-center justify-center font-bold shadow group-hover:translate-x-1 transition">
-                            ➔
-                        </div>
-                    </button>
-
-                    <!-- Mode 2: Mudah -->
-                    <button onclick="startQuiz('Mudah')" class="btn-bounce bg-white hover:bg-emerald-50 p-5 rounded-3xl shadow-md border-2 border-emerald-200 border-b-4 border-b-emerald-500 text-left flex items-center justify-between">
-                        <div class="flex items-center gap-3.5">
-                            <div class="bg-emerald-100 text-emerald-600 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
-                                🌱
-                            </div>
-                            <div>
-                                <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-1">5 SOAL</span>
-                                <h4 class="font-display text-xl font-bold text-slate-800">Tingkat Mudah</h4>
-                                <p class="text-slate-500 text-xs sm:text-sm font-semibold">Hafalan & pengertian dasar</p>
-                            </div>
-                        </div>
-                        <span class="text-emerald-500 text-2xl font-bold">➔</span>
-                    </button>
-
-                    <!-- Mode 3: Sedang -->
-                    <button onclick="startQuiz('Sedang')" class="btn-bounce bg-white hover:bg-amber-50 p-5 rounded-3xl shadow-md border-2 border-amber-200 border-b-4 border-b-amber-500 text-left flex items-center justify-between">
-                        <div class="flex items-center gap-3.5">
-                            <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
-                                ⭐
-                            </div>
-                            <div>
-                                <span class="inline-block bg-amber-100 text-amber-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-1">5 SOAL</span>
-                                <h4 class="font-display text-xl font-bold text-slate-800">Tingkat Sedang</h4>
-                                <p class="text-slate-500 text-xs sm:text-sm font-semibold">Pemahaman konsep & urutan</p>
-                            </div>
-                        </div>
-                        <span class="text-amber-500 text-2xl font-bold">➔</span>
-                    </button>
-
-                    <!-- Mode 4: Susah / HOTS -->
-                    <button onclick="startQuiz('Susah')" class="btn-bounce col-span-1 sm:col-span-2 bg-white hover:bg-rose-50 p-5 rounded-3xl shadow-md border-2 border-rose-200 border-b-4 border-b-rose-500 text-left flex items-center justify-between">
-                        <div class="flex items-center gap-3.5">
-                            <div class="bg-rose-100 text-rose-600 w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0">
-                                🚀
-                            </div>
-                            <div>
-                                <span class="inline-block bg-rose-100 text-rose-800 text-xs font-extrabold px-2.5 py-0.5 rounded-full mb-1">5 SOAL • HOTS</span>
-                                <h4 class="font-display text-xl font-bold text-slate-800">Tingkat Susah (Cerita & Sikap)</h4>
-                                <p class="text-slate-500 text-xs sm:text-sm font-semibold">Penerapan sikap baik & cerita sehari-hari</p>
-                            </div>
-                        </div>
-                        <span class="text-rose-500 text-2xl font-bold">➔</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. HALAMAN PENGERJAAN KUIS -->
-        <section id="view-quiz" class="hidden space-y-5">
-            
-            <!-- Bar Progres & Info Nomor -->
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-                <div class="flex justify-between items-center mb-2 text-sm font-extrabold">
-                    <span id="quiz-progress-text" class="text-sky-600">Soal 1 dari 15</span>
-                    <span id="quiz-answered-count" class="text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full">Terjawab: 0/15</span>
-                </div>
-                <div class="w-full bg-slate-100 h-3.5 rounded-full overflow-hidden p-0.5">
-                    <div id="quiz-progress-bar" class="bg-gradient-to-r from-emerald-400 to-sky-500 h-full rounded-full transition-all duration-300" style="width: 6%"></div>
-                </div>
-
-                <!-- Navigasi Nomor Soal (Bisa digeser di HP) -->
-                <div id="question-nav-pills" class="flex gap-2 overflow-x-auto no-scrollbar pt-3 pb-1">
-                    <!-- Pill nomor di-generate lewat JS -->
-                </div>
-            </div>
-
-            <!-- Kartu Soal Utama -->
-            <div id="question-card" class="bg-white rounded-3xl p-5 sm:p-7 shadow-md border-2 border-slate-100 animate-pop">
-                <!-- Lencana Bab & Tingkat Kesulitan -->
-                <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
-                    <span id="badge-bab" class="bg-sky-100 text-sky-800 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-xl">
-                        Bab 1: Aku Cinta Al-Qur'an
-                    </span>
-                    <span id="badge-difficulty" class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1">
-                        🌱 Mudah
-                    </span>
-                </div>
-
-                <!-- Teks Pertanyaan (Besar & Jelas untuk Anak Kelas 1) -->
-                <div class="mb-6">
-                    <p id="question-text" class="font-sans text-xl sm:text-2xl font-extrabold text-slate-800 leading-snug">
-                        Memuat pertanyaan...
+<!-- ... existing code ... -->
+                    <h2 class="font-display text-2xl sm:text-3xl font-bold text-slate-800">Assalamu'alaikum, Anak Hebat!</h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-1 font-semibold">
+                        Ayo berlatih untuk <strong>Penilaian Akhir Semester 1</strong> (Bab 1 sampai Bab 5). Setiap paket berisi <strong>15 soal</strong> dengan 4 model seru!
                     </p>
                 </div>
 
-                <!-- Pilihan Jawaban (A, B, C - Tombol Besar Ramah Jari Anak) -->
-                <div id="options-container" class="space-y-3.5">
-                    <!-- Tombol opsi di-generate lewat JS -->
+                <!-- Input Nama Siswa -->
+                <div class="max-w-md mx-auto bg-sky-50/80 p-4 rounded-2xl border-2 border-sky-200">
+                    <label for="student-name" class="block text-sm font-extrabold text-sky-900 mb-1.5">
+                        ✏️ Nama Siswa (Opsional):
+                    </label>
+                    <input type="text" id="student-name" maxlength="30" placeholder="Ketik namamu di sini, misal: Aisyah" 
+                        class="w-full min-h-[48px] px-4 py-2.5 rounded-xl border-2 border-sky-300 bg-white font-bold text-slate-800 text-base focus:outline-none focus:border-sky-500 transition">
+                </div>
+
+                <!-- Info Cakupan & Komposisi -->
+                <div class="mt-5 pt-4 border-t border-slate-100 flex flex-wrap justify-center gap-2 text-xs font-extrabold">
+                    <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">🌱 5 Mudah</span>
+                    <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full">⭐ 5 Sedang</span>
+                    <span class="bg-rose-100 text-rose-800 px-3 py-1 rounded-full">🚀 5 Susah (HOTS)</span>
+                    <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">🧩 4 Tipe Soal</span>
                 </div>
             </div>
+<!-- ... existing code ... -->
+                    <div class="flex items-center gap-2 text-xs sm:text-sm font-extrabold">
+                        <span id="quiz-progress-text" class="text-sky-600">Soal 1/15</span>
+                        <span id="quiz-answered-count" class="text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">Terjawab: 0/15</span>
+                    </div>
+                </div>
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
+                    <div id="quiz-progress-bar" class="bg-gradient-to-r from-emerald-400 to-sky-500 h-full rounded-full transition-all duration-300" style="width: 6.67%"></div>
+                </div>
 
-            <!-- Tombol Navigasi Bawah (Sebelumnya / Selanjutnya / Selesai) -->
-            <div class="flex items-center justify-between gap-3 pt-2">
-                <button id="btn-prev" onclick="prevQuestion()" class="btn-bounce flex-1 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none text-slate-700 font-display text-lg font-bold py-4 px-4 rounded-2xl shadow border-2 border-slate-200 flex items-center justify-center gap-2">
-                    <span>⬅️</span> Sebelumnya
-                </button>
-
-                <button id="btn-next" onclick="nextQuestion()" class="btn-bounce flex-1 bg-sky-500 hover:bg-sky-600 text-white font-display text-lg font-bold py-4 px-4 rounded-2xl shadow-md border-b-4 border-sky-700 flex items-center justify-center gap-2">
-                    Selanjutnya <span>➡️</span>
-                </button>
-
-                <button id="btn-finish" onclick="attemptFinishQuiz()" class="hidden btn-bounce flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-display text-lg font-bold py-4 px-4 rounded-2xl shadow-md border-b-4 border-emerald-700 flex items-center justify-center gap-2">
-                    <span>🏁</span> Selesai & Nilai
-                </button>
+                <!-- Grid / Bar Nomor Soal 1-15 -->
+                <div class="mt-3 pt-2 border-t border-slate-100">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Pilih Nomor Soal:</span>
+                        <button onclick="toggleGridExpand()" id="btn-toggle-grid" class="text-xs font-extrabold text-sky-600 hover:text-sky-800 py-0.5 px-2 bg-sky-50 rounded-lg">
+                            Lihat Semua 15 Nomor ▼
+                        </button>
+                    </div>
+                    <div id="question-nav-pills" class="flex gap-2 overflow-x-auto no-scrollbar py-1">
+                        <!-- Nomor 1-15 dirender JS -->
+                    </div>
+                </div>
             </div>
-
-        </section>
-
-        <!-- 3. HALAMAN HASIL & PEMBAHASAN -->
-        <section id="view-result" class="hidden space-y-6 animate-pop">
-            
+<!-- ... existing code ... -->
             <!-- Kartu Skor Utama -->
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border-4 border-sunny-400 text-center relative overflow-hidden">
-                <div id="result-emoji" class="text-6xl mb-3">🎉</div>
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border-4 border-amber-300 text-center">
+                <div id="result-emoji" class="text-6xl mb-2">🎉</div>
+                <p id="result-student-greeting" class="text-sm font-extrabold text-indigo-600 uppercase tracking-wide mb-1">Hasil Latihan</p>
                 <h2 id="result-title" class="font-display text-2xl sm:text-3xl font-bold text-slate-800 mb-1">Alhamdulillah, Selesai!</h2>
-                <p id="result-message" class="text-slate-600 font-bold text-base sm:text-lg mb-6">Kamu hebat sekali sudah menyelesaikan latihan ini!</p>
+                <p id="result-message" class="text-slate-600 font-bold text-sm sm:text-base mb-5">Kamu hebat sudah menyelesaikan 15 soal!</p>
 
                 <!-- Lingkaran Nilai -->
-                <div class="inline-flex flex-col items-center justify-center w-36 h-36 rounded-full bg-gradient-to-b from-sky-400 to-indigo-600 text-white shadow-xl border-4 border-white mb-6">
-                    <span class="text-xs uppercase font-extrabold tracking-widest opacity-90">Nilai Kamu</span>
-                    <span id="result-score" class="font-display text-5xl font-bold leading-none my-1">100</span>
-                    <span class="text-xs font-bold opacity-90">dari 100</span>
-                </div>
-
-                <!-- Statistik Benar & Salah -->
-                <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto mb-6">
-                    <div class="bg-emerald-50 border-2 border-emerald-200 p-3 rounded-2xl">
-                        <div class="text-2xl font-display font-bold text-emerald-600" id="result-correct">0</div>
-                        <div class="text-xs sm:text-sm font-extrabold text-emerald-800">✅ Jawaban Benar</div>
-                    </div>
-                    <div class="bg-rose-50 border-2 border-rose-200 p-3 rounded-2xl">
-                        <div class="text-2xl font-display font-bold text-rose-600" id="result-wrong">0</div>
-                        <div class="text-xs sm:text-sm font-extrabold text-rose-800">❌ Perlu Belajar Lagi</div>
-                    </div>
-                </div>
-
-                <!-- Tombol Aksi -->
-                <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                    <button onclick="restartSameMode()" class="btn-bounce bg-emerald-500 hover:bg-emerald-600 text-white font-display text-lg font-bold py-3.5 px-6 rounded-2xl shadow-md border-b-4 border-emerald-700 flex items-center justify-center gap-2">
-                        <span>🔄</span> Ulangi Latihan Ini
-                    </button>
-                    <button onclick="goToMenu()" class="btn-bounce bg-sky-100 hover:bg-sky-200 text-sky-800 font-display text-lg font-bold py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2">
-                        <span>🏠</span> Pilih Mode Lain
-                    </button>
-                </div>
-            </div>
-
-            <!-- Rincian Review & Pembahasan -->
+<!-- ... existing code ... -->
+            <!-- Filter Review Pembahasan -->
             <div class="space-y-4">
-                <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-800 px-1 flex items-center gap-2">
-                    <span>📖</span> Ayo Lihat Pembahasan Soal:
-                </h3>
+                <div class="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <h3 class="font-display text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <span>📖</span> Pembahasan 15 Soal:
+                    </h3>
+                    <div class="flex gap-1.5">
+                        <button onclick="filterReview('all')" id="rev-filter-all" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-indigo-600 text-white">Semua (15)</button>
+                        <button onclick="filterReview('wrong')" id="rev-filter-wrong" class="px-3 py-1.5 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-slate-200">Salah Saja</button>
+                    </div>
+                </div>
+
                 <div id="review-container" class="space-y-4">
-                    <!-- Kartu review tiap soal di-generate lewat JS -->
+                    <!-- Kartu review 15 soal dirender JS -->
                 </div>
             </div>
-
-            <!-- Tombol Ulangi di Paling Bawah -->
-            <div class="pt-2 pb-6 text-center">
-                <button onclick="restartSameMode()" class="btn-bounce w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-display text-lg font-bold py-4 px-8 rounded-2xl shadow-lg border-b-4 border-emerald-700 inline-flex items-center justify-center gap-2">
-                    <span>🔄</span> Ulangi Latihan Kembali
-                </button>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- MODAL KONFIRMASI KUSTOM (Pengganti alert/confirm bawaan browser) -->
-    <div id="custom-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border-4 border-sky-200 text-center animate-pop">
-            <div id="modal-icon" class="text-5xl mb-3">🤔</div>
-            <h3 id="modal-title" class="font-display text-2xl font-bold text-slate-800 mb-2">Judul Modal</h3>
-            <p id="modal-text" class="text-slate-600 font-semibold text-base mb-6">Pesan konfirmasi di sini.</p>
-            <div id="modal-buttons" class="flex gap-3">
-                <!-- Tombol modal di-generate lewat JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER SEDERHANA -->
-    <footer class="text-center py-4 text-slate-400 text-xs font-bold">
-        Pendidikan Agama Islam & Budi Pekerti • Kelas 1 SD
-    </footer>
-
-    <!-- LOGIKA JAVASCRIPT KUIS -->
+<!-- ... existing code ... -->
+    <!-- DATABASE 5 PAKET SOAL SEMESTER 1 (BAB 1 - BAB 5, MASING-MASING 15 SOAL UNIK) -->
     <script>
-        // ==========================================
-        // BANK SOAL PAI & BUDI PEKERTI KELAS 1 SD
-        // Total 15 Soal: 5 Mudah, 5 Sedang, 5 Susah (HOTS)
-        // Mencakup Bab 1 s.d. Bab 5
-        // ==========================================
-        const allQuestions = [
-            // --- 5 SOAL TINGKAT MUDAH ---
+        /*
+         * KOMPOSISI TIAP PAKET (15 SOAL KHUSUS SEMESTER 1: BAB 1 - BAB 5):
+         * - 3 soal per Bab (Bab 1, Bab 2, Bab 3, Bab 4, Bab 5)
+         * - 5 Mudah, 5 Sedang, 5 Susah (HOTS)
+         * - 7 Pilihan Ganda ('pg'), 3 Mencocokkan ('match'), 3 Benar/Salah ('tf'), 2 Isian Singkat ('short')
+         */
+
+        const quizPackages = [
+            // =========================================================================
+            // PAKET 1: LATIHAN 1 (15 SOAL SEMESTER 1: BAB 1 - BAB 5)
+            // =========================================================================
             {
                 id: 1,
-                bab: "Bab 1: Aku Cinta Al-Qur'an",
-                difficulty: "Mudah",
-                question: "Kitab suci umat Islam adalah ....",
-                options: [
-                    "Al-Qur'an",
-                    "Injil",
-                    "Taurat"
-                ],
-                correctIndex: 0,
-                explanation: "Al-Qur'an adalah kitab suci umat Islam yang diturunkan Allah Swt. kepada Nabi Muhammad saw."
+                title: "Latihan 1",
+                subtitle: "Al-Fatihah, Rukun Iman & Rukun Islam Dasar",
+                icon: "🌱",
+                color: "emerald",
+                questions: [
+                    // 5 SOAL MUDAH (1 per Bab: 3 PG, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Kitab suci umat Islam yang wajib kita cintai dan pelajari adalah ....', options: ['Al-Qur\'an', 'Injil', 'Zabur'], answer: 0, explanation: 'Al-Qur\'an adalah kitab suci umat Islam yang diturunkan Allah Swt. kepada Nabi Muhammad saw.' },
+                    { type: 'short', difficulty: 'Mudah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Rukun Iman berjumlah ... perkara.', acceptableAnswers: ['6', 'enam'], placeholder: 'Angka atau huruf...', explanation: 'Rukun Iman berjumlah 6 perkara, dimulai dengan iman kepada Allah Swt.' },
+                    { type: 'tf', difficulty: 'Mudah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Setelah selesai makan atau belajar, kita mengucapkan Alhamdulillahi rabbil \'alamin.', answer: true, explanation: 'Benar! Hamdalah diucapkan setelah mengakhiri kegiatan sebagai rasa syukur kepada Allah Swt.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Rukun Islam berjumlah ....', options: ['4 perkara', '5 perkara', '6 perkara'], answer: 1, explanation: 'Rukun Islam ada 5: syahadat, salat, zakat, puasa, dan haji.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Nabi terakhir yang menjadi penutup seluruh para nabi adalah ....', options: ['Nabi Adam a.s.', 'Nabi Musa a.s.', 'Nabi Muhammad saw.'], answer: 2, explanation: 'Nabi Muhammad saw. adalah nabi dan rasul terakhir yang diutus Allah Swt.' },
+
+                    // 5 SOAL SEDANG (1 per Bab: 2 PG, 2 Match, 1 TF)
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Pasangkan tanda baca harakat dasar berikut dengan bunyinya!', pairs: [
+                        { left: 'Fathah ( ـَ )', right: 'Berbunyi vokal "a"' },
+                        { left: 'Kasrah ( ـِ )', right: 'Berbunyi vokal "i"' },
+                        { left: 'Dammah ( ـُ )', right: 'Berbunyi vokal "u"' }
+                    ], choices: ['Berbunyi vokal "u"', 'Berbunyi vokal "a"', 'Berbunyi vokal "i"'], explanation: 'Fathah di atas huruf berbunyi "a", kasrah di bawah berbunyi "i", dan dammah berbunyi "u".' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Nabi Muhammad saw. lahir di kota Makkah pada hari Senin tanggal ....', options: ['12 Rabiul Awal Tahun Gajah', '10 Muharam Tahun Hijriah', '17 Ramadan Tahun Gajah'], answer: 0, explanation: 'Nabi Muhammad saw. lahir di Makkah pada hari Senin, 12 Rabiul Awal Tahun Gajah.' },
+                    { type: 'tf', difficulty: 'Sedang', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Berpamitan, mencium tangan, dan memohon doa restu orang tua sebelum berangkat sekolah adalah sikap santun.', answer: true, explanation: 'Benar! Anak yang santun selalu berpamitan dan memohon doa restu kepada kedua orang tua.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Uswatun hasanah bagi umat Islam adalah Nabi Muhammad saw. Arti kata uswatun hasanah adalah ....', options: ['Suri teladan yang baik', 'Pemimpin yang kaya', 'Penakluk negeri'], answer: 0, explanation: 'Uswatun hasanah artinya suri teladan yang baik dalam ibadah maupun akhlak.' },
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Pasangkan nama Nabi berikut dengan mukjizat yang diberikan Allah Swt.!', pairs: [
+                        { left: 'Nabi Nuh a.s.', right: 'Membuat kapal yang sangat besar' },
+                        { left: 'Nabi Musa a.s.', right: 'Tongkat menjadi ular besar' },
+                        { left: 'Nabi Muhammad saw.', right: 'Kitab suci Al-Qur\'an' }
+                    ], choices: ['Kitab suci Al-Qur\'an', 'Membuat kapal yang sangat besar', 'Tongkat menjadi ular besar'], explanation: 'Mukjizat Nabi Nuh kapal besar, Nabi Musa tongkat menjadi ular besar, dan mukjizat terbesar Nabi Muhammad adalah Al-Qur\'an.' },
+
+                    // 5 SOAL SUSAH / HOTS (1 per Bab: 2 PG, 1 Match, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Perhatikan tulisan Arab berharakat berikut: "رَوَ - تُ - كِ". Cara membaca huruf-huruf tersebut dari kanan ke kiri adalah ....', options: ['rawa - tu - ki', 'tu - rawa - ki', 'ki - tu - rawa'], answer: 0, explanation: 'Tulisan Arab dibaca dari kanan ke kiri: رَوَ (rawa), تُ (tu), كِ (ki).' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Allah Swt. menciptakan mata, tangan, dan kaki kita dengan sempurna. Cara anak muslim mencintai Allah atas nikmat anggota tubuh tersebut adalah ....', options: ['Menggunakan tangan untuk membantu teman dan mata untuk mengaji', 'Menggunakan kaki untuk menendang pintu kelas', 'Malas membersihkan tubuh setelah bermain'], answer: 0, explanation: 'Mencintai Allah dilakukan dengan menjaga, merawat, dan menggunakan ciptaan-Nya untuk kebaikan.' },
+                    { type: 'tf', difficulty: 'Susah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Jika seseorang tidak pernah membaca Basmalah dan merasa semua keberhasilan adalah hasil kehebatannya sendiri, sikap itu tidak sesuai dengan ajaran Bab 3.', answer: true, explanation: 'Benar! Semua kemampuan dan keberhasilan datang dari pertolongan Allah Swt., sehingga kita selalu mengawalinya dengan Basmalah.' },
+                    { type: 'match', difficulty: 'Susah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Pasangkan potongan dua kalimat syahadat berikut dengan artinya!', pairs: [
+                        { left: 'Asyhadu alla ilaha illallah', right: 'Aku bersaksi tidak ada Tuhan selain Allah' },
+                        { left: 'Wa asyhadu anna Muhammadar-rasulullah', right: 'Dan aku bersaksi Nabi Muhammad utusan Allah' },
+                        { left: 'Syahadat Tauhid & Rasul', right: 'Dua kalimat syahadat' }
+                    ], choices: ['Dua kalimat syahadat', 'Aku bersaksi tidak ada Tuhan selain Allah', 'Dan aku bersaksi Nabi Muhammad utusan Allah'], explanation: 'Syahadat pertama adalah Syahadat Tauhid dan syahadat kedua adalah Syahadat Rasul.' },
+                    { type: 'short', difficulty: 'Susah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Gelar bagi 5 rasul pilihan yang memiliki ketabahan dan kesabaran luar biasa dalam berdakwah disebut Rasul ....', acceptableAnswers: ['ululazmi', 'ulul azmi', 'ulul-azmi'], placeholder: 'Ketik gelar rasul...', explanation: 'Ululazmi adalah gelar bagi 5 rasul paling tabah: Nabi Nuh, Ibrahim, Musa, Isa, dan Muhammad saw.' }
+                ]
             },
+
+            // =========================================================================
+            // PAKET 2: LATIHAN 2 (15 SOAL SEMESTER 1: BAB 1 - BAB 5)
+            // =========================================================================
             {
                 id: 2,
-                bab: "Bab 1: Aku Cinta Al-Qur'an",
-                difficulty: "Mudah",
-                question: "Arti dari nama surah Al-Fatihah adalah ....",
-                options: [
-                    "Penutup",
-                    "Pembukaan",
-                    "Manusia"
-                ],
-                correctIndex: 1,
-                explanation: "Surah Al-Fatihah artinya 'Pembukaan', karena menjadi surah pertama di dalam Al-Qur'an."
+                title: "Latihan 2",
+                subtitle: "Huruf Hijaiah, Tahun Gajah & Rasul Ululazmi",
+                icon: "⭐",
+                color: "sky",
+                questions: [
+                    // 5 SOAL MUDAH (1 per Bab: 3 PG, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Jumlah huruf hijaiah dalam buku PAI Kelas 1 ada ....', options: ['26 huruf', '28 huruf', '32 huruf'], answer: 1, explanation: 'Huruf hijaiah yang dipelajari berjumlah 28 huruf, dimulai dari Alif sampai Ya.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Alam semesta beserta matahari, bulan, gunung, dan lautan adalah ciptaan ....', options: ['Allah Swt.', 'Manusia', 'Malaikat'], answer: 0, explanation: 'Allah Swt. adalah Pencipta seluruh alam semesta dan segala isinya.' },
+                    { type: 'short', difficulty: 'Mudah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Arti dari kata "Alhamdulillah" adalah segala puji bagi ....', acceptableAnswers: ['allah', 'allah swt'], placeholder: 'Ketik 1 kata...', explanation: 'Alhamdulillahi rabbil \'alamin artinya "Segala puji bagi Allah, Tuhan seluruh alam".' },
+                    { type: 'tf', difficulty: 'Mudah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Ibadah haji dilaksanakan di Kota Makkah bagi umat Islam yang mampu.', answer: true, explanation: 'Benar! Rukun Islam ke-5 adalah melaksanakan ibadah haji ke Baitullah di Kota Makkah bagi yang mampu.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Nabi pertama yang diutus oleh Allah Swt. adalah ....', options: ['Nabi Adam a.s.', 'Nabi Ibrahim a.s.', 'Nabi Isa a.s.'], answer: 0, explanation: 'Urutan 25 nabi dimulai dari Nabi Adam a.s. hingga Nabi Muhammad saw.' },
+
+                    // 5 SOAL SEDANG (1 per Bab: 2 PG, 2 Match, 1 TF)
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Pasangkan bentuk huruf hijaiah berikut dengan nama hurufnya!', pairs: [
+                        { left: 'ا', right: 'Alif' },
+                        { left: 'ج', right: 'Jim' },
+                        { left: 'س', right: 'Sin' }
+                    ], choices: ['Sin', 'Alif', 'Jim'], explanation: 'Bentuk tegak lurus adalah Alif (ا), titik satu di tengah adalah Jim (ج), bergigi tiga tanpa titik adalah Sin (س).' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Tahun kelahiran Nabi Muhammad saw. dinamakan Tahun Gajah karena pada saat itu ....', options: ['Banyak gajah berternak di Makkah', 'Kakbah diserang oleh pasukan bergajah yang dipimpin Abrahah', 'Nabi Muhammad menaiki gajah'], answer: 1, explanation: 'Dinamakan Tahun Gajah karena bertepatan dengan peristiwa penyerangan Kakbah oleh pasukan bergajah.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Ketika hendak keluar rumah menuju sekolah, hal yang dilakukan anak santun kepada orang tua adalah ....', options: ['Langsung berlari keluar tanpa pamit', 'Berpamitan, mencium tangan, dan memohon doa restu', 'Berteriak dari depan pagar'], answer: 1, explanation: 'Berpamitan dan mencium tangan orang tua adalah bentuk hormat dan santun.' },
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Pasangkan Rukun Islam ke-4 dan ke-5 beserta tempat/waktunya!', pairs: [
+                        { left: 'Rukun Islam ke-4', right: 'Menjalankan puasa Ramadan' },
+                        { left: 'Rukun Islam ke-5', right: 'Melaksanakan haji bagi yang mampu' },
+                        { left: 'Tempat ibadah haji', right: 'Kota Makkah' }
+                    ], choices: ['Kota Makkah', 'Menjalankan puasa Ramadan', 'Melaksanakan haji bagi yang mampu'], explanation: 'Rukun Islam ke-4 adalah puasa Ramadan dan ke-5 adalah haji di Kota Makkah bagi yang mampu.' },
+                    { type: 'tf', difficulty: 'Sedang', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Menabung sebagian uang saku dan menyisihkannya untuk berinfak adalah contoh perilaku hidup sederhana.', answer: true, explanation: 'Benar! Nabi dan rasul mengajarkan hidup sederhana, hemat, menabung, dan gemar berinfak.' },
+
+                    // 5 SOAL SUSAH / HOTS (1 per Bab: 2 PG, 1 Match, 1 TF, 1 Short)
+                    { type: 'short', difficulty: 'Susah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Huruf Ba dengan harakat fathah dibaca "ba", kasrah dibaca "bi", dan dammah dibaca "...."', acceptableAnswers: ['bu'], placeholder: 'Ketik 2 huruf...', explanation: 'Huruf Ba (ب) berharakat dammah (بُ) dibaca "bu".' },
+                    { type: 'tf', difficulty: 'Susah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Cara mencintai Nabi Muhammad saw. cukup dengan menghafal namanya saja tanpa perlu meniru perilaku baiknya.', answer: false, explanation: 'Salah! Mencintai Nabi Muhammad saw. dibuktikan dengan mengenal beliau dan mencontoh akhlak serta perilakunya sehari-hari.' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Raka akan mengikuti lomba membaca puisi di depan kelas. Ia merasa agak gugup. Bacaan yang sebaiknya diucapkan Raka sebelum memulai adalah ....', options: ['Bismillahir-rahmanir-rahim', 'Alhamdulillahi rabbil \'alamin', 'Assalamu\'alaikum saja tanpa doa'], answer: 0, explanation: 'Sebelum memulai kegiatan atau lomba, membaca Basmalah memohon pertolongan dan kelancaran kepada Allah Swt.' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Pada hari Minggu, warga kampung bergotong royong membersihkan selokan dan masjid. Sikap anak muslim yang sesuai dengan ajaran Rukun Islam dan akhlak terpuji adalah ....', options: ['Ikut membantu semampunya seperti mengumpulkan sampah daun kering', 'Bermain sepeda di tengah warga yang sedang bekerja', 'Menonton dari dalam rumah sambil makan camilan'], answer: 0, explanation: 'Gotong royong dan saling membantu adalah cerminan perilaku anak muslim yang mengamalkan ajaran Islam.' },
+                    { type: 'match', difficulty: 'Susah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Kelompokkan tokoh berikut mana yang termasuk Rasul Ululazmi dan mana yang bukan!', pairs: [
+                        { left: 'Nabi Ibrahim a.s.', right: 'Termasuk Rasul Ululazmi' },
+                        { left: 'Nabi Isa a.s.', right: 'Termasuk Rasul Ululazmi' },
+                        { left: 'Nabi Adam a.s.', right: 'Bukan Rasul Ululazmi' }
+                    ], choices: ['Bukan Rasul Ululazmi', 'Termasuk Rasul Ululazmi', 'Termasuk Rasul Ululazmi'], explanation: '5 Rasul Ululazmi adalah Nabi Nuh, Ibrahim, Musa, Isa, dan Muhammad saw. Nabi Adam adalah nabi pertama, bukan Ululazmi.' }
+                ]
             },
+
+            // =========================================================================
+            // PAKET 3: LATIHAN 3 (15 SOAL SEMESTER 1: BAB 1 - BAB 5)
+            // =========================================================================
             {
                 id: 3,
-                bab: "Bab 2: Mengenal Rukun Iman",
-                difficulty: "Mudah",
-                question: "Jumlah Rukun Iman ada ....",
-                options: [
-                    "5 perkara",
-                    "6 perkara",
-                    "7 perkara"
-                ],
-                correctIndex: 1,
-                explanation: "Rukun Iman berjumlah 6 perkara. Yang pertama adalah iman kepada Allah Swt."
+                title: "Latihan 3",
+                subtitle: "Bacaan Harakat, Syahadat & Kisah Ketabahan Rasul",
+                icon: "🚀",
+                color: "amber",
+                questions: [
+                    // 5 SOAL MUDAH (1 per Bab: 3 PG, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Harakat fathah ( ـَ ) yang berada di atas huruf hijaiah berbunyi ....', options: ['a', 'i', 'u'], answer: 0, explanation: 'Fathah adalah garis miring kecil di atas huruf yang berbunyi vokal "a".' },
+                    { type: 'short', difficulty: 'Mudah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Nabi Muhammad saw. dilahirkan di kota ....', acceptableAnswers: ['makkah', 'mekah', 'mekkah'], placeholder: 'Ketik nama kota...', explanation: 'Nabi Muhammad saw. dilahirkan di Kota Makkah.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Dalam bacaan Basmalah, Allah Swt. memiliki sifat Maha Pengasih dan Maha ....', options: ['Penyayang', 'Melihat', 'Mendengar'], answer: 0, explanation: 'Ar-Rahman artinya Maha Pengasih dan Ar-Rahim artinya Maha Penyayang.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Rukun Islam yang kedua adalah mengerjakan ....', options: ['Salat', 'Zakat', 'Puasa'], answer: 0, explanation: 'Urutan Rukun Islam: (1) Syahadat, (2) Salat, (3) Zakat, (4) Puasa, (5) Haji.' },
+                    { type: 'tf', difficulty: 'Mudah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Nabi Nuh a.s. diberi mukjizat oleh Allah dapat membuat kapal yang sangat besar untuk menyelamatkan umatnya dari banjir besar.', answer: true, explanation: 'Benar! Atas perintah dan mukjizat Allah, Nabi Nuh a.s. membuat bahtera raksasa.' },
+
+                    // 5 SOAL SEDANG (1 per Bab: 2 PG, 2 Match, 1 TF)
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Pasangkan bunyi bacaan berikut dengan tulisan huruf berharakatnya!', pairs: [
+                        { left: 'Dibaca "wa"', right: 'وَ' },
+                        { left: 'Dibaca "ki"', right: 'كِ' },
+                        { left: 'Dibaca "yu"', right: 'يُ' }
+                    ], choices: ['يُ', 'وَ', 'كِ'], explanation: 'Wau fathah = wa (وَ), Kaf kasrah = ki (كِ), Ya dammah = yu (يُ).' },
+                    { type: 'tf', difficulty: 'Sedang', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Rukun Iman ke-6 adalah iman kepada Qada dan Qadar (ketetapan Allah Swt.).', answer: true, explanation: 'Benar! Rukun Iman ke-6 adalah iman kepada Qada dan Qadar.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Ketika berangkat ke sekolah, Fatimah mencium tangan ibu dan ayah sambil memohon ....', options: ['Doa restu', 'Uang jajan tambahan', 'Mainan baru'], answer: 0, explanation: 'Memohon doa restu orang tua membuat hati tenang dan belajar menjadi berkah.' },
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Pasangkan jenis zakat berikut dengan bentuk yang dikeluarkan!', pairs: [
+                        { left: 'Zakat Fitrah', right: 'Makanan pokok (beras) di bulan Ramadan' },
+                        { left: 'Zakat Mal', right: 'Sebagian harta benda yang dimiliki' },
+                        { left: 'Penerima Zakat', right: 'Fakir miskin dan yang berhak' }
+                    ], choices: ['Fakir miskin dan yang berhak', 'Makanan pokok (beras) di bulan Ramadan', 'Sebagian harta benda yang dimiliki'], explanation: 'Zakat fitrah berupa makanan pokok, zakat mal berupa harta, dan diberikan kepada fakir miskin.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Manakah di bawah ini yang termasuk dalam 5 Rasul Ululazmi?', options: ['Nabi Ibrahim a.s. dan Nabi Musa a.s.', 'Nabi Yusuf a.s. dan Nabi Yunus a.s.', 'Nabi Sulaiman a.s. dan Nabi Daud a.s.'], answer: 0, explanation: '5 Rasul Ululazmi adalah Nabi Nuh, Ibrahim, Musa, Isa, dan Muhammad saw.' },
+
+                    // 5 SOAL SUSAH / HOTS (1 per Bab: 2 PG, 1 Match, 1 TF, 1 Short)
+                    { type: 'tf', difficulty: 'Susah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Jika kita salat tanpa membaca surah Al-Fatihah padahal kita hafal, maka salat kita tetap sah.', answer: false, explanation: 'Salah! Membaca surah Al-Fatihah adalah salah satu rukun salat yang wajib dibaca di setiap rakaat.' },
+                    { type: 'short', difficulty: 'Susah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Pasukan bergajah yang hendak menghancurkan Kakbah pada tahun kelahiran Nabi Muhammad saw. dipimpin oleh Raja ....', acceptableAnswers: ['abrahah', 'raja abrahah'], placeholder: 'Ketik nama pemimpin...', explanation: 'Pasukan bergajah dipimpin oleh Abrahah, dan Allah menghancurkan mereka dengan burung Ababil.' },
+                    { type: 'match', difficulty: 'Susah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Pasangkan situasi berikut dengan ucapan atau tindakan syukur yang paling tepat!', pairs: [
+                        { left: 'Akan mulai menulis pelajaran', right: 'Membaca Basmalah' },
+                        { left: 'Selesai makan siang', right: 'Membaca Hamdalah' },
+                        { left: 'Diberi tubuh yang sehat', right: 'Rajin salat & mengaji' }
+                    ], choices: ['Rajin salat & mengaji', 'Membaca Basmalah', 'Membaca Hamdalah'], explanation: 'Syukur diwujudkan melalui lisan (Hamdalah) dan perbuatan (rajin beribadah).' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Di sekolah diadakan kegiatan mengumpulkan beras dan uang untuk membantu korban banjir. Aisyah menyisihkan uang sakunya untuk ikut berbagi. Perilaku Aisyah mencerminkan semangat Rukun Islam ke-3, yaitu ....', options: ['Zakat dan berbagi kepada sesama yang membutuhkan', 'Ibadah haji ke Makkah', 'Mengucapkan dua kalimat syahadat'], answer: 0, explanation: 'Berbagi harta atau makanan kepada orang yang membutuhkan sejalan dengan nilai zakat dalam Rukun Islam ke-3.' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Mengapa Nabi Nuh, Ibrahim, Musa, Isa, dan Muhammad saw. mendapat gelar Rasul Ululazmi?', options: ['Karena memiliki ketabahan, kesabaran, dan keteguhan hati yang luar biasa dalam berdakwah', 'Karena memiliki kerajaan paling luas di dunia', 'Karena tidak pernah mendapat cobaan dari umatnya'], answer: 0, explanation: 'Ululazmi berarti memiliki tekad dan ketabahan luar biasa dalam menghadapi cobaan berat saat berdakwah.' }
+                ]
             },
+
+            // =========================================================================
+            // PAKET 4: LATIHAN 4 (15 SOAL SEMESTER 1: BAB 1 - BAB 5)
+            // =========================================================================
             {
                 id: 4,
-                bab: "Bab 3: Aku Suka Membaca Basmalah dan Hamdalah",
-                difficulty: "Mudah",
-                question: "Sebelum mulai makan dan belajar, kita harus membaca ....",
-                options: [
-                    "Basmalah",
-                    "Hamdalah",
-                    "Takbir"
-                ],
-                correctIndex: 0,
-                explanation: "Kita membaca Basmalah (Bismillahirrahmanirrahim) sebelum memulai kegiatan baik agar mendapat berkah."
+                title: "Latihan 4",
+                subtitle: "Urutan Rukun, Cinta Nabi & Hidup Sederhana",
+                icon: "🏆",
+                color: "purple",
+                questions: [
+                    // 5 SOAL MUDAH (1 per Bab: 3 PG, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Harakat dammah ( ـُ ) berbunyi vokal ....', options: ['a', 'i', 'u'], answer: 2, explanation: 'Dammah berbentuk seperti tanda koma kecil di atas huruf dan berbunyi "u".' },
+                    { type: 'tf', difficulty: 'Mudah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Rasulullah adalah utusan Allah Swt. yang membawa ajaran kebenaran bagi umat manusia.', answer: true, explanation: 'Benar! Rasulullah adalah utusan Allah Swt. yang membimbing manusia ke jalan yang benar.' },
+                    { type: 'short', difficulty: 'Mudah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Bacaan "Alhamdulillahi rabbil \'alamin" dibaca setelah ... kegiatan.', acceptableAnswers: ['mengakhiri', 'selesai', 'menyelesaikan'], placeholder: 'Ketik 1 kata...', explanation: 'Hamdalah diucapkan setelah selesai atau mengakhiri kegiatan.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Rukun Islam yang pertama adalah membaca dua kalimat ....', options: ['Syahadat', 'Tasbih', 'Takbir'], answer: 0, explanation: 'Membaca dua kalimat syahadat adalah Rukun Islam yang pertama.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Nabi yang membuat kapal sangat besar atas perintah Allah Swt. adalah ....', options: ['Nabi Nuh a.s.', 'Nabi Daud a.s.', 'Nabi Ismail a.s.'], answer: 0, explanation: 'Nabi Nuh a.s. membuat bahtera besar untuk menyelamatkan orang beriman dari banjir bandang.' },
+
+                    // 5 SOAL SEDANG (1 per Bab: 2 PG, 2 Match, 1 TF)
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Bagaimana cara membaca huruf hijaiah berikut: "بَ - بِ - بُ" (dari kanan ke kiri)?', options: ['ba - bi - bu', 'bu - bi - ba', 'bi - ba - bu'], answer: 0, explanation: 'Huruf Ba dengan fathah (بَ = ba), kasrah (بِ = bi), dan dammah (بُ = bu).' },
+                    { type: 'tf', difficulty: 'Sedang', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Cara mencintai Nabi Muhammad saw. adalah dengan mengenal kisah hidupnya dan mencontoh perilaku baiknya.', answer: true, explanation: 'Benar! Mencintai Rasulullah dibuktikan dengan meneladani kejujuran, kasih sayang, dan ibadah beliau.' },
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Pasangkan perilaku berikut dengan manfaatnya!', pairs: [
+                        { left: 'Membaca Basmalah sebelum belajar', right: 'Belajar menjadi berkah dan dimudahkan Allah' },
+                        { left: 'Membaca Hamdalah setelah makan', right: 'Mensyukuri nikmat rezeki dari Allah' },
+                        { left: 'Mencium tangan orang tua saat pamit', right: 'Mendapat doa restu dan ridha orang tua' }
+                    ], choices: ['Mendapat doa restu dan ridha orang tua', 'Belajar menjadi berkah dan dimudahkan Allah', 'Mensyukuri nikmat rezeki dari Allah'], explanation: 'Setiap kebiasaan baik dalam Bab 3 mendatangkan keberkahan dan rasa syukur.' },
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Pasangkan Rukun Islam berikut dengan pengertian singkatnya!', pairs: [
+                        { left: 'Syahadat', right: 'Kesaksian keesaan Allah & kerasulan Muhammad' },
+                        { left: 'Zakat', right: 'Berbagi harta/makanan kepada yang berhak' },
+                        { left: 'Puasa', right: 'Menahan lapar dan haus di bulan Ramadan' }
+                    ], choices: ['Menahan lapar dan haus di bulan Ramadan', 'Kesaksian keesaan Allah & kerasulan Muhammad', 'Berbagi harta/makanan kepada yang berhak'], explanation: 'Pengertian syahadat, zakat, dan puasa dalam Rukun Islam.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Siapakah nama nabi pertama dan nama nabi terakhir dari 25 nabi yang wajib kita ketahui?', options: ['Nabi Adam a.s. dan Nabi Muhammad saw.', 'Nabi Nuh a.s. dan Nabi Isa a.s.', 'Nabi Ibrahim a.s. dan Nabi Musa a.s.'], answer: 0, explanation: 'Daftar 25 nabi diawali oleh Nabi Adam a.s. dan diakhiri oleh Nabi Muhammad saw.' },
+
+                    // 5 SOAL SUSAH / HOTS (1 per Bab: 2 PG, 1 Match, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Rina ingin menulis kata berharakat yang dibaca "wa - ki - yu". Huruf hijaiah yang harus ditulis Rina dari kanan ke kiri adalah ....', options: ['وَ - كِ - يُ', 'يُ - كِ - وَ', 'كِ - وَ - يُ'], answer: 0, explanation: 'Dari kanan ke kiri: وَ (wa), kemudian كِ (ki), lalu يُ (yu).' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Andi membuang sampah plastik ke selokan di depan rumah hingga mampet. Mengapa perbuatan Andi bertentangan dengan cara mencintai Allah Swt.?', options: ['Karena merusak lingkungan alam yang merupakan ciptaan Allah Swt.', 'Karena selokan itu milik tetangga', 'Karena sampah plastik harganya mahal'], answer: 0, explanation: 'Menjaga kebersihan lingkungan alam adalah wujud merawat ciptaan Allah Swt.' },
+                    { type: 'short', difficulty: 'Susah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Dua sifat kasih sayang Allah Swt. yang terdapat dalam bacaan Basmalah adalah Ar-Rahman (Maha Pengasih) dan Ar-....', acceptableAnswers: ['rahim', 'ar-rahim', 'arrahim'], placeholder: 'Ketik 1 kata...', explanation: 'Bismillahir-rahmanir-rahim memuat dua nama Allah: Ar-Rahman dan Ar-Rahim.' },
+                    { type: 'tf', difficulty: 'Susah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Melaksanakan ibadah haji di Kota Makkah bagi yang mampu adalah Rukun Islam yang ke-5.', answer: true, explanation: 'Benar! Haji ke Baitullah bagi yang mampu merupakan Rukun Islam urutan ke-5.' },
+                    { type: 'match', difficulty: 'Susah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Pasangkan 3 Rasul Ululazmi berikut dengan ciri kisahnya!', pairs: [
+                        { left: 'Nabi Nuh a.s.', right: 'Sabar berdakwah ratusan tahun & membuat kapal besar' },
+                        { left: 'Nabi Musa a.s.', right: 'Menghadapi Firaun dengan mukjizat tongkat' },
+                        { left: 'Nabi Muhammad saw.', right: 'Rasul terakhir pembawa mukjizat Al-Qur\'an' }
+                    ], choices: ['Rasul terakhir pembawa mukjizat Al-Qur\'an', 'Sabar berdakwah ratusan tahun & membuat kapal besar', 'Menghadapi Firaun dengan mukjizat tongkat'], explanation: 'Ketiganya termasuk dalam 5 Rasul Ululazmi yang memiliki ketabahan luar biasa.' }
+                ]
             },
+
+            // =========================================================================
+            // PAKET 5: LATIHAN 5 (15 SOAL SEMESTER 1: BAB 1 - BAB 5)
+            // =========================================================================
             {
                 id: 5,
-                bab: "Bab 4: Mengenal Rukun Islam",
-                difficulty: "Mudah",
-                question: "Jumlah Rukun Islam ada ....",
-                options: [
-                    "4 perkara",
-                    "5 perkara",
-                    "6 perkara"
-                ],
-                correctIndex: 1,
-                explanation: "Rukun Islam ada 5 perkara, yaitu Syahadat, Salat, Zakat, Puasa, dan Haji."
-            },
+                title: "Latihan 5",
+                subtitle: "Simulasi Lengkap PAS Semester 1 (Bab 1 – Bab 5)",
+                icon: "👑",
+                color: "rose",
+                questions: [
+                    // 5 SOAL MUDAH (1 per Bab: 3 PG, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Surah Al-Fatihah artinya ....', options: ['Pembukaan', 'Penutupan', 'Pertolongan'], answer: 0, explanation: 'Al-Fatihah artinya pembukaan karena terletak di awal Al-Qur\'an.' },
+                    { type: 'short', difficulty: 'Mudah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Nabi Muhammad saw. lahir pada hari ... tanggal 12 Rabiul Awal.', acceptableAnswers: ['senin', 'hari senin'], placeholder: 'Ketik nama hari...', explanation: 'Nabi Muhammad saw. lahir pada hari Senin, 12 Rabiul Awal Tahun Gajah.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Sebelum makan, minum, dan belajar, anak saleh selalu membaca ....', options: ['Bismillahir-rahmanir-rahim', 'Alhamdulillahi rabbil \'alamin', 'Astaghfirullahal \'azim'], answer: 0, explanation: 'Basmalah dibaca sebelum memulai setiap aktivitas yang baik.' },
+                    { type: 'tf', difficulty: 'Mudah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Dua kalimat syahadat terdiri atas Syahadat Tauhid dan Syahadat Rasul.', answer: true, explanation: 'Benar! Syahadat Tauhid bersaksi tentang Allah dan Syahadat Rasul bersaksi tentang Nabi Muhammad saw.' },
+                    { type: 'pg', difficulty: 'Mudah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Perkara luar biasa yang diberikan Allah Swt. kepada nabi dan rasul sebagai bukti kenabian disebut ....', options: ['Mukjizat', 'Hadiah', 'Karomah'], answer: 0, explanation: 'Mukjizat adalah kejadian luar biasa atas izin Allah Swt. sebagai bukti kenabian.' },
 
-            // --- 5 SOAL TINGKAT SEDANG ---
-            {
-                id: 6,
-                bab: "Bab 1: Aku Cinta Al-Qur'an",
-                difficulty: "Sedang",
-                question: "Tanda baca harakat fathah ( ـَ ) menghasilkan bunyi huruf vokal ....",
-                options: [
-                    "i",
-                    "u",
-                    "a"
-                ],
-                correctIndex: 2,
-                explanation: "Harakat fathah berada di atas huruf hijaiyah dan berbunyi vokal 'a' (contoh: ba, ta, sa)."
-            },
-            {
-                id: 7,
-                bab: "Bab 2: Mengenal Rukun Iman",
-                difficulty: "Sedang",
-                question: "Rukun Iman yang ke-2 adalah iman kepada ....",
-                options: [
-                    "Malaikat Allah",
-                    "Kitab-kitab Allah",
-                    "Rasul Allah"
-                ],
-                correctIndex: 0,
-                explanation: "Urutan Rukun Iman: (1) Allah, (2) Malaikat Allah, (3) Kitab Allah, (4) Rasul Allah, (5) Hari Kiamat, (6) Qada dan Qadar."
-            },
-            {
-                id: 8,
-                bab: "Bab 3: Aku Suka Membaca Basmalah dan Hamdalah",
-                difficulty: "Sedang",
-                question: "Bacaan 'Alhamdulillahi rabbil 'alamin' artinya segala puji bagi Allah Tuhan ....",
-                options: [
-                    "Yang Maha Pengasih",
-                    "Semesta alam",
-                    "Yang Maha Penyayang"
-                ],
-                correctIndex: 1,
-                explanation: "Hamdalah (Alhamdulillahi rabbil 'alamin) artinya 'Segala puji bagi Allah, Tuhan semesta alam'."
-            },
-            {
-                id: 9,
-                bab: "Bab 4: Mengenal Rukun Islam",
-                difficulty: "Sedang",
-                question: "'Asyhadu an laa ilaaha illallah' adalah bacaan syahadat ....",
-                options: [
-                    "Tauhid",
-                    "Rasul",
-                    "Iman"
-                ],
-                correctIndex: 0,
-                explanation: "Syahadat Tauhid adalah kesaksian bahwa tidak ada Tuhan selain Allah Swt."
-            },
-            {
-                id: 10,
-                bab: "Bab 5: Nabi dan Rasul Panutanku",
-                difficulty: "Sedang",
-                question: "Mukjizat terbesar yang diberikan Allah Swt. kepada Nabi Muhammad saw. adalah ....",
-                options: [
-                    "Tongkat menjadi ular",
-                    "Kitab suci Al-Qur'an",
-                    "Membuat kapal besar"
-                ],
-                correctIndex: 1,
-                explanation: "Mukjizat terbesar Nabi Muhammad saw. adalah kitab suci Al-Qur'an yang menjadi pedoman umat Islam hingga akhir zaman."
-            },
+                    // 5 SOAL SEDANG (1 per Bab: 2 PG, 2 Match, 1 TF)
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Pasangkan huruf hijaiah berharakat berikut dengan cara membacanya!', pairs: [
+                        { left: 'بَ', right: 'Dibaca "ba"' },
+                        { left: 'بِ', right: 'Dibaca "bi"' },
+                        { left: 'بُ', right: 'Dibaca "bu"' }
+                    ], choices: ['Dibaca "bu"', 'Dibaca "ba"', 'Dibaca "bi"'], explanation: 'Ba fathah = ba, Ba kasrah = bi, Ba dammah = bu.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Nama ayah dan ibu Nabi Muhammad saw. secara berurutan adalah ....', options: ['Abdullah dan Siti Aminah', 'Abdul Muthalib dan Siti Hajar', 'Abu Thalib dan Siti Khadijah'], answer: 0, explanation: 'Ayahanda Nabi Muhammad saw. bernama Abdullah dan ibunda beliau bernama Siti Aminah.' },
+                    { type: 'tf', difficulty: 'Sedang', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Ketika meminta doa restu kepada orang tua sebelum berangkat sekolah, kita bersikap santun dan mencium tangan.', answer: true, explanation: 'Benar! Bersikap santun dan mencium tangan orang tua adalah adab anak saleh.' },
+                    { type: 'pg', difficulty: 'Sedang', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Zakat yang wajib dikeluarkan umat Islam pada bulan Ramadan berupa makanan pokok (beras) disebut ....', options: ['Zakat fitrah', 'Zakat mal', 'Infak harian'], answer: 0, explanation: 'Zakat fitrah dikeluarkan di bulan Ramadan menjelang salat Idulfitri berupa makanan pokok.' },
+                    { type: 'match', difficulty: 'Sedang', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Pasangkan istilah dalam Bab 5 berikut dengan artinya yang tepat!', pairs: [
+                        { left: 'Mukjizat', right: 'Perkara luar biasa bukti kenabian dari Allah' },
+                        { left: 'Ululazmi', right: '5 Rasul dengan ketabahan luar biasa' },
+                        { left: '25 Nabi & Rasul', right: 'Utusan Allah yang wajib diketahui namanya' }
+                    ], choices: ['Utusan Allah yang wajib diketahui namanya', 'Perkara luar biasa bukti kenabian dari Allah', '5 Rasul dengan ketabahan luar biasa'], explanation: 'Ringkasan konsep utama Bab 5: Mukjizat, 5 Rasul Ululazmi, dan 25 Nabi dan Rasul.' },
 
-            // --- 5 SOAL TINGKAT SUSAH (HOTS / STUDI KASUS) ---
-            {
-                id: 11,
-                bab: "Bab 5: Nabi dan Rasul Panutanku",
-                difficulty: "Susah",
-                question: "Nabi dan Rasul sama-sama menerima wahyu dari Allah Swt. Perbedaannya adalah seorang Rasul wajib ....",
-                options: [
-                    "Menyimpan wahyu untuk dirinya sendiri",
-                    "Menyampaikan wahyu kepada umatnya",
-                    "Berdiam diri di dalam rumah"
-                ],
-                correctIndex: 1,
-                explanation: "Nabi menerima wahyu untuk dirinya sendiri, sedangkan Rasul menerima wahyu dan wajib menyampaikannya kepada umat manusia."
-            },
-            {
-                id: 12,
-                bab: "Bab 2: Mengenal Rukun Iman",
-                difficulty: "Susah",
-                question: "Saat bermain di taman, Rina melihat kupu-kupu yang indah dan langit yang biru. Sikap Rina yang mencerminkan iman kepada Allah adalah ....",
-                options: [
-                    "Menangkap semua kupu-kupu sampai sayapnya rusak",
-                    "Mengagumi ciptaan Allah dan mengucapkan Subhanallah",
-                    "Membuang sampah plastik di taman bunga"
-                ],
-                correctIndex: 1,
-                explanation: "Alam semesta dan makhluk hidup adalah ciptaan Allah Swt. Kita harus mengagumi dan menjaganya."
-            },
-            {
-                id: 13,
-                bab: "Bab 3: Aku Suka Membaca Basmalah dan Hamdalah",
-                difficulty: "Susah",
-                question: "Ahmad baru saja selesai mengerjakan ulangan dan mendapat nilai bagus. Ucapan syukur yang sebaiknya diucapkan Ahmad adalah ....",
-                options: [
-                    "Bismillahirrahmanirrahim",
-                    "Alhamdulillahirabbil 'alamin",
-                    "Astaghfirullahal 'azim"
-                ],
-                correctIndex: 1,
-                explanation: "Ketika selesai melakukan pekerjaan atau mendapatkan nikmat dan nilai bagus, kita bersyukur dengan membaca Hamdalah."
-            },
-            {
-                id: 14,
-                bab: "Bab 4: Mengenal Rukun Islam",
-                difficulty: "Susah",
-                question: "Keluarga Budi memiliki harta yang cukup. Pada bulan Ramadan, ayah Budi membagikan beras kepada fakir miskin. Perbuatan ayah Budi termasuk Rukun Islam yang ke-....",
-                options: [
-                    "2 (Salat)",
-                    "3 (Zakat)",
-                    "5 (Haji)"
-                ],
-                correctIndex: 1,
-                explanation: "Membagikan beras atau harta kepada fakir miskin sesuai aturan agama disebut Zakat, yaitu Rukun Islam ke-3."
-            },
-            {
-                id: 15,
-                bab: "Bab 5: Nabi dan Rasul Panutanku",
-                difficulty: "Susah",
-                question: "Nabi Muhammad saw. mendapat gelar Al-Amin yang artinya dapat dipercaya. Jika kamu menemukan pensil teman yang jatuh di kelas, sikapmu meneladani Nabi adalah ....",
-                options: [
-                    "Menyimpannya di dalam tas sendiri",
-                    "Mengembalikannya kepada teman pemiliknya",
-                    "Membiarkannya terinjak-injak di lantai"
-                ],
-                correctIndex: 1,
-                explanation: "Meneladani sifat jujur dan dapat dipercaya (Al-Amin) Nabi Muhammad saw. dilakukan dengan mengembalikan barang yang bukan milik kita."
+                    // 5 SOAL SUSAH / HOTS (1 per Bab: 2 PG, 1 Match, 1 TF, 1 Short)
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 1: Aku Cinta Al-Qur\'an', question: 'Perhatikan urutan ayat surah Al-Fatihah berikut: (1) Bismillahir-rahmanir-rahim, (2) Alhamdulillahi rabbil \'alamin, (3) ..., (4) Maliki yaumiddin. Ayat ke-3 untuk melengkapi titik-titik tersebut adalah ....', options: ['Ar-rahmanir-rahim', 'Iyyaka na\'budu wa iyyaka nasta\'in', 'Ihdinash-shirathal mustaqim'], answer: 0, explanation: 'Ayat ke-3 surah Al-Fatihah adalah "Ar-rahmanir-rahim".' },
+                    { type: 'match', difficulty: 'Susah', bab: 'Bab 2: Mengenal Rukun Iman', question: 'Pasangkan bukti keimanan berikut dengan Rukun Iman yang sesuai!', pairs: [
+                        { left: 'Merawat tumbuhan & hewan ciptaan Allah', right: 'Cinta kepada Allah (Rukun Iman ke-1)' },
+                        { left: 'Rajin membaca & menghormati Al-Qur\'an', right: 'Iman kepada Kitab-kitab (Rukun Iman ke-3)' },
+                        { left: 'Mencontoh akhlak terpuji Nabi Muhammad saw.', right: 'Iman kepada Rasul (Rukun Iman ke-4)' }
+                    ], choices: ['Iman kepada Rasul (Rukun Iman ke-4)', 'Cinta kepada Allah (Rukun Iman ke-1)', 'Iman kepada Kitab-kitab (Rukun Iman ke-3)'], explanation: 'Penerapan Rukun Iman dalam kehidupan anak muslim sehari-hari.' },
+                    { type: 'pg', difficulty: 'Susah', bab: 'Bab 3: Basmalah & Hamdalah', question: 'Dina mendapat juara 1 lomba mewarnai tingkat sekolah. Ia senang sekali, namun ia ingat bahwa kepandaiannya adalah pemberian Allah Swt. Ucapan dan sikap Dina yang paling tepat adalah ....', options: ['Mengucap Alhamdulillahi rabbil \'alamin dan tetap rendah hati', 'Menyombongkan pialanya di depan teman yang kalah', 'Menganggap dirinya paling hebat tanpa bantuan Allah'], answer: 0, explanation: 'Mengucap Hamdalah dan tetap rendah hati adalah wujud syukur yang dicintai Allah Swt.' },
+                    { type: 'tf', difficulty: 'Susah', bab: 'Bab 4: Mengenal Rukun Islam', question: 'Salat adalah Rukun Islam ke-2 dan puasa Ramadan adalah Rukun Islam ke-4.', answer: true, explanation: 'Benar! Urutan 5 Rukun Islam: (1) Syahadat, (2) Salat, (3) Zakat, (4) Puasa, (5) Haji.' },
+                    { type: 'short', difficulty: 'Susah', bab: 'Bab 5: Nabi & Rasul Panutanku', question: 'Suri teladan yang baik dalam bahasa Arab disebut uswatun ....', acceptableAnswers: ['hasanah', 'uswatun hasanah'], placeholder: 'Ketik 1 kata...', explanation: 'Uswatun hasanah artinya suri teladan yang baik, yaitu Nabi Muhammad saw.' }
+                ]
             }
         ];
 
-        // ==========================================
-        // STATE APLIKASI
-        // ==========================================
-        let currentMode = 'all'; // 'all', 'Mudah', 'Sedang', 'Susah'
-        let activeQuestions = [];
-        let currentQuestionIndex = 0;
-        let userAnswers = []; // Menyimpan indeks pilihan user (0, 1, 2) atau null jika belum dijawab
+        // =========================================================================
+        // STATE APLIKASI & STORAGE
+        // =========================================================================
+        const STORAGE_KEY = 'pai_kelas1_pas1_15soal_v3';
+// ... existing code ...
+                btn.className = `btn-bounce w-full min-h-[84px] bg-white ${theme.bg} p-4 sm:p-5 rounded-3xl shadow-sm border-2 border-b-4 ${theme.border} text-left flex items-center justify-between gap-3`;
 
-        // ==========================================
-        // ELEMEN DOM
-        // ==========================================
-        const viewStart = document.getElementById('view-start');
-        const viewQuiz = document.getElementById('view-quiz');
-        const viewResult = document.getElementById('view-result');
-        const btnHomeHeader = document.getElementById('btn-home-header');
-
-        // ==========================================
-        // FUNGSI UTAMA NAVIGASI & INISIALISASI
-        // ==========================================
-        function startQuiz(mode) {
-            currentMode = mode;
-            
-            // Filter soal berdasarkan mode yang dipilih
-            if (mode === 'all') {
-                activeQuestions = [...allQuestions];
-            } else {
-                activeQuestions = allQuestions.filter(q => q.difficulty === mode);
-            }
-
-            // Reset state
-            currentQuestionIndex = 0;
-            userAnswers = new Array(activeQuestions.length).fill(null);
-
-            // Ganti tampilan
-            viewStart.classList.add('hidden');
-            viewResult.classList.add('hidden');
-            viewQuiz.classList.remove('hidden');
-            btnHomeHeader.classList.remove('hidden');
-
-            renderQuestionNavPills();
-            renderCurrentQuestion();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function restartSameMode() {
-            startQuiz(currentMode);
-        }
-
-        function goToMenu() {
-            closeModal();
-            viewQuiz.classList.add('hidden');
-            viewResult.classList.add('hidden');
-            btnHomeHeader.classList.add('hidden');
-            viewStart.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function confirmBackToMenu() {
-            showModal(
-                "🏠",
-                "Kembali ke Menu?",
-                "Jawabanmu pada latihan ini akan hilang jika kembali ke menu awal.",
-                [
-                    { text: "Lanjut Belajar", style: "bg-slate-200 text-slate-800", action: closeModal },
-                    { text: "Ya, Ke Menu", style: "bg-rose-500 text-white", action: goToMenu }
-                ]
-            );
-        }
-
-        // ==========================================
-        // RENDER SOAL & NAVIGASI NOMOR
-        // ==========================================
-        function renderQuestionNavPills() {
-            const container = document.getElementById('question-nav-pills');
-            container.innerHTML = '';
-
-            activeQuestions.forEach((_, idx) => {
-                const isCurrent = idx === currentQuestionIndex;
-                const isAnswered = userAnswers[idx] !== null;
-
-                let btnClass = "w-10 h-10 rounded-xl font-display font-bold text-base flex-shrink-0 flex items-center justify-center transition border-2 ";
-                
-                if (isCurrent) {
-                    btnClass += "bg-sky-500 text-white border-sky-600 scale-105 shadow-sm";
-                } else if (isAnswered) {
-                    btnClass += "bg-emerald-100 text-emerald-800 border-emerald-400";
-                } else {
-                    btnClass += "bg-slate-50 text-slate-500 border-slate-200 hover:bg-slate-100";
-                }
-
-                const btn = document.createElement('button');
-                btn.className = btnClass;
-                btn.textContent = idx + 1;
-                btn.onclick = () => {
-                    currentQuestionIndex = idx;
-                    renderCurrentQuestion();
-                };
+                btn.innerHTML = `
+                    <div class="flex items-center gap-3.5 sm:gap-4">
+                        <div class="${theme.iconBg} w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 shadow-inner">
+                            ${pkg.icon}
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                <h4 class="font-display text-xl font-bold text-slate-800">${pkg.title}</h4>
+                                ${badgeHtml}
+                            </div>
+                            <p class="text-slate-600 text-xs sm:text-sm font-bold">${pkg.subtitle}</p>
+                            <p class="text-slate-400 text-[11px] font-extrabold mt-1">15 Soal • 5 Mudah • 5 Sedang • 5 Susah</p>
+                        </div>
+                    </div>
+                    <div class="${theme.arrow} text-2xl font-bold flex-shrink-0 pl-1">➔</div>
+                `;
                 container.appendChild(btn);
             });
         }
-
-        function renderCurrentQuestion() {
-            const q = activeQuestions[currentQuestionIndex];
-            const total = activeQuestions.length;
-
-            // Update Progres Bar & Teks
-            document.getElementById('quiz-progress-text').textContent = `Soal ${currentQuestionIndex + 1} dari ${total}`;
-            const answeredCount = userAnswers.filter(ans => ans !== null).length;
-            document.getElementById('quiz-answered-count').textContent = `Terjawab: ${answeredCount}/${total}`;
-            
-            const progressPercent = ((currentQuestionIndex + 1) / total) * 100;
-            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
-
-            // Update Lencana Bab & Kesulitan
-            document.getElementById('badge-bab').textContent = q.bab;
-            
-            const badgeDiff = document.getElementById('badge-difficulty');
-            if (q.difficulty === 'Mudah') {
-                badgeDiff.className = "bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1";
-                badgeDiff.innerHTML = "🌱 Mudah";
-            } else if (q.difficulty === 'Sedang') {
-                badgeDiff.className = "bg-amber-100 text-amber-800 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1";
-                badgeDiff.innerHTML = "⭐ Sedang";
+// ... existing code ...
+            if (isGridExpanded) {
+                navContainer.className = "grid grid-cols-5 sm:grid-cols-8 gap-2 py-2";
+                toggleBtn.textContent = "Sembunyikan Nomor ▲";
             } else {
-                badgeDiff.className = "bg-rose-100 text-rose-800 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-1";
-                badgeDiff.innerHTML = "🚀 Susah (HOTS)";
-            }
-
-            // Animasi ulang kartu soal
-            const card = document.getElementById('question-card');
-            card.classList.remove('animate-pop');
-            void card.offsetWidth; // Trigger reflow
-            card.classList.add('animate-pop');
-
-            // Teks Pertanyaan
-            document.getElementById('question-text').textContent = `${currentQuestionIndex + 1}. ${q.question}`;
-
-            // Render Pilihan Jawaban (A, B, C)
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-            const optionLetters = ['A', 'B', 'C'];
-
-            q.options.forEach((optText, optIdx) => {
-                const isSelected = userAnswers[currentQuestionIndex] === optIdx;
-                
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.onclick = () => selectOption(optIdx);
-
-                // Styling tombol besar ramah jari anak
-                if (isSelected) {
-                    btn.className = "option-card btn-bounce w-full text-left p-4 sm:p-5 rounded-2xl border-3 border-sky-500 bg-sky-50 shadow-md flex items-center gap-4";
-                } else {
-                    btn.className = "option-card btn-bounce w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 bg-white hover:border-sky-300 hover:bg-slate-50 shadow-xs flex items-center gap-4";
-                }
-
-                // Lencana Huruf A, B, C
-                const letterBadgeClass = isSelected
-                    ? "w-11 h-11 rounded-xl bg-sky-500 text-white font-display text-xl font-bold flex items-center justify-center flex-shrink-0 shadow-xs"
-                    : "w-11 h-11 rounded-xl bg-slate-100 text-slate-700 font-display text-xl font-bold flex items-center justify-center flex-shrink-0";
-
-                btn.innerHTML = `
-                    <span class="${letterBadgeClass}">${optionLetters[optIdx]}</span>
-                    <span class="text-lg sm:text-xl font-bold ${isSelected ? 'text-sky-900' : 'text-slate-700'} leading-snug">${optText}</span>
-                `;
-
-                optionsContainer.appendChild(btn);
-            });
-
-            // Update Tombol Navigasi Bawah
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
-            const btnFinish = document.getElementById('btn-finish');
-
-            btnPrev.disabled = currentQuestionIndex === 0;
-
-            if (currentQuestionIndex === total - 1) {
-                btnNext.classList.add('hidden');
-                btnFinish.classList.remove('hidden');
-            } else {
-                btnNext.classList.remove('hidden');
-                btnFinish.classList.add('hidden');
-            }
-
-            renderQuestionNavPills();
-        }
-
-        function selectOption(optIdx) {
-            userAnswers[currentQuestionIndex] = optIdx;
-            renderCurrentQuestion();
-        }
-
-        function prevQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                renderCurrentQuestion();
+                navContainer.className = "flex gap-2 overflow-x-auto no-scrollbar py-1";
+                toggleBtn.textContent = "Lihat Semua 15 Nomor ▼";
             }
         }
-
-        function nextQuestion() {
-            if (currentQuestionIndex < activeQuestions.length - 1) {
-                currentQuestionIndex++;
-                renderCurrentQuestion();
-            }
-        }
-
-        // ==========================================
-        // PENYELESAIAN KUIS & PERHITUNGAN SKOR
-        // ==========================================
-        function attemptFinishQuiz() {
-            const unansweredCount = userAnswers.filter(ans => ans === null).length;
-
-            if (unansweredCount > 0) {
-                showModal(
-                    "🧐",
-                    "Masih Ada Soal Kosong!",
-                    `Ada ${unansweredCount} soal yang belum kamu jawab. Apakah kamu yakin ingin selesai sekarang?`,
-                    [
-                        { text: "Cek Lagi", style: "bg-sky-500 text-white", action: closeModal },
-                        { text: "Selesai Saja", style: "bg-emerald-500 text-white", action: () => { closeModal(); showResults(); } }
-                    ]
-                );
-            } else {
-                showResults();
-            }
-        }
-
-        function showResults() {
-            viewQuiz.classList.add('hidden');
-            viewResult.classList.remove('hidden');
-            btnHomeHeader.classList.add('hidden');
-
-            let correctCount = 0;
-            activeQuestions.forEach((q, idx) => {
-                if (userAnswers[idx] === q.correctIndex) {
-                    correctCount++;
-                }
-            });
-
-            const total = activeQuestions.length;
-            const wrongCount = total - correctCount;
-            const score = Math.round((correctCount / total) * 100);
-
-            // Set Nilai & Statistik
-            document.getElementById('result-score').textContent = score;
-            document.getElementById('result-correct').textContent = correctCount;
-            document.getElementById('result-wrong').textContent = wrongCount;
-
-            // Pesan Motivasi Ramah Anak
-            const emojiEl = document.getElementById('result-emoji');
-            const titleEl = document.getElementById('result-title');
-            const msgEl = document.getElementById('result-message');
-
-            if (score === 100) {
-                emojiEl.textContent = "👑";
-                titleEl.textContent = "MasyaAllah, Sempurna!";
-                msgEl.textContent = "Nilai 100! Kamu pintar sekali dan menguasai semua pelajaran PAI!";
-            } else if (score >= 80) {
-                emojiEl.textContent = "🌟";
-                titleEl.textContent = "Alhamdulillah, Hebat Sekali!";
-                msgEl.textContent = "Nilaimu sangat bagus! Terus pertahankan semangat belajarmu ya!";
-            } else if (score >= 60) {
-                emojiEl.textContent = "😊";
-                titleEl.textContent = "Bagus, Anak Pintar!";
-                msgEl.textContent = "Kamu sudah berusaha dengan baik. Ayo baca pembahasannya supaya makin paham!";
-            } else {
-                emojiEl.textContent = "💪";
-                titleEl.textContent = "Tetap Semangat Belajar!";
-                msgEl.textContent = "Jangan menyerah ya! Yuk lihat jawaban yang benar di bawah lalu coba ulangi lagi!";
-            }
-
-            renderReviewCards();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderReviewCards() {
-            const container = document.getElementById('review-container');
-            container.innerHTML = '';
-            const optionLetters = ['A', 'B', 'C'];
-
-            activeQuestions.forEach((q, idx) => {
-                const userAnsIdx = userAnswers[idx];
-                const isCorrect = userAnsIdx === q.correctIndex;
-                const isUnanswered = userAnsIdx === null;
-
-                const card = document.createElement('div');
-                card.className = `bg-white rounded-3xl p-5 sm:p-6 shadow-sm border-2 ${isCorrect ? 'border-emerald-300' : 'border-rose-300'}`;
-
-                // Status Badge
-                const statusBadge = isCorrect
-                    ? `<span class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-extrabold px-3 py-1 rounded-full">✅ Benar</span>`
-                    : `<span class="bg-rose-100 text-rose-800 text-xs sm:text-sm font-extrabold px-3 py-1 rounded-full">❌ ${isUnanswered ? 'Tidak Dijawab' : 'Kurang Tepat'}</span>`;
-
-                // Teks Jawaban Anak
-                const userAnsText = isUnanswered
-                    ? "Kamu belum memilih jawaban"
-                    : `${optionLetters[userAnsIdx]}. ${q.options[userAnsIdx]}`;
-
-                // Teks Jawaban Benar
-                const correctAnsText = `${optionLetters[q.correctIndex]}. ${q.options[q.correctIndex]}`;
-
-                card.innerHTML = `
-                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                        <span class="text-xs font-extrabold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">${q.bab} • ${q.difficulty}</span>
-                        ${statusBadge}
-                    </div>
-                    
-                    <p class="font-bold text-lg sm:text-xl text-slate-800 mb-4">${idx + 1}. ${q.question}</p>
-                    
-                    <div class="space-y-2 mb-4 text-sm sm:text-base">
-                        <div class="p-3 rounded-xl ${isCorrect ? 'bg-emerald-50 text-emerald-900 border border-emerald-200' : 'bg-rose-50 text-rose-900 border border-rose-200'} font-bold">
-                            <span class="block text-xs uppercase opacity-75 mb-0.5">Jawaban Kamu:</span>
-                            ${userAnsText}
-                        </div>
-                        
-                        ${!isCorrect ? `
-                        <div class="p-3 rounded-xl bg-emerald-50 text-emerald-900 border border-emerald-200 font-bold">
-                            <span class="block text-xs uppercase opacity-75 mb-0.5">Jawaban yang Benar:</span>
-                            ${correctAnsText}
-                        </div>
-                        ` : ''}
-                    </div>
-
-                    <div class="bg-sky-50 border border-sky-200 rounded-2xl p-3.5 text-sky-900 text-sm sm:text-base">
-                        <span class="font-extrabold">💡 Penjelasan:</span> ${q.explanation}
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-
-        // ==========================================
-        // FUNGSI MODAL KUSTOM (RAMAH ANAK)
-        // ==========================================
-        function showModal(icon, title, text, buttons) {
-            document.getElementById('modal-icon').textContent = icon;
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-text').textContent = text;
-
-            const btnContainer = document.getElementById('modal-buttons');
-            btnContainer.innerHTML = '';
-
-            buttons.forEach(btnInfo => {
-                const btn = document.createElement('button');
-                btn.className = `btn-bounce flex-1 py-3 px-4 rounded-2xl font-display font-bold text-base shadow-xs ${btnInfo.style}`;
-                btn.textContent = btnInfo.text;
-                btn.onclick = btnInfo.action;
-                btnContainer.appendChild(btn);
-            });
-
-            document.getElementById('custom-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('custom-modal').classList.add('hidden');
-        }
-    </script>
-</body>
-</html>
+// ... existing code ...
